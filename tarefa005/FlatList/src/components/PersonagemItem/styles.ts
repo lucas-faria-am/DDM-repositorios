@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
       alignItems: "center",
       justifyContent: "space-between",
       paddingHorizontal: 25,
-      paddingVertical: 25,
+      paddingVertical: 20,
       margin: 5,
       borderRadius: 10
     },
@@ -21,10 +21,10 @@ export const styles = StyleSheet.create({
       fontSize: 20,
       fontWeight: "bold",
       color: "#FFD700",
-      marginBottom: 16,
+      marginBottom: 16
     },
     description: {
       fontSize: 16,
-      color: "#000",
+      color: "#000"
     },
   });

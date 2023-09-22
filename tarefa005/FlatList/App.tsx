@@ -7,7 +7,7 @@ import ItemLista from './src/screens/itemlista/ItemLista';
 
 const Stack = createStackNavigator();
 
-function App() {
+export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Lista">
@@ -17,8 +17,6 @@ function App() {
     </NavigationContainer>
   );
 }
-
-export default App;
 
 // import { View , StyleSheet } from 'react-native';
 // import Lista from './src/screens/lista/Lista';
