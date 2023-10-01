@@ -4,9 +4,12 @@ import { cores } from '../database/Database';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { StatusBar } from "expo-status-bar";
 import ImageCarousel from "./ImageCarousel"; 
+import { useNavigation } from '@react-navigation/native';
+
 
 const ProdutoInfo = ({ route }) => {
   const { produto } = route.params;
+  const navigation = useNavigation();
 
   console.log();
 
@@ -31,7 +34,7 @@ const ProdutoInfo = ({ route }) => {
               position: 'absolute',
               top: 20, 
               left: 20,
-            }}>
+            }} onPress={() => navigation.navigate('Home')}>
               <Entypo name="chevron-left"
                 style={{
                   fontSize: 18,
@@ -43,14 +46,13 @@ const ProdutoInfo = ({ route }) => {
               />
             </TouchableOpacity>
             <View style={{
-              paddingRight: 70,
-              flex: 1,
+              marginBottom: 50,
             }}>
               <ImageCarousel images={[produto.imagemProd, ...produto.imagemProdList]} />
             </View>
             <View>
-              <Text style={{ fontSize: 20, color: cores.black, fontWeight: '400', letterSpacing: 1, marginBottom: 10 }}>{produto.nomeProd}</Text>
-              <Text style={{ fontSize: 14, color: cores.black, fontWeight: '400', letterSpacing: 1, lineHeight: 24 }}>{produto.descricao}</Text>
+              <Text style={{ fontSize: 20, color: cores.black, fontWeight: '400', letterSpacing: 1}}>{produto.nomeProd}</Text>
+              <Text style={{ fontSize: 14, color: cores.black, fontWeight: '400', letterSpacing: 1, marginTop: 20}}>{produto.descricao}</Text>
             </View>
           </View>
         </View>
