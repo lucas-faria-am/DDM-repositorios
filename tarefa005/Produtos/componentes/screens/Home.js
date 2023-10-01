@@ -1,7 +1,6 @@
 import React from "react";
 import { View, StatusBar, Text, ScrollView, TouchableOpacity, Image } from "react-native";
 import { cores, Itens } from '../database/Database';
-import Entypo from "react-native-vector-icons/Entypo";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
 
@@ -12,20 +11,7 @@ const Home = () => {
       <StatusBar backgroundColor={cores.white} barStyle="dark-content" />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ padding: 16 }}>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <TouchableOpacity>
-              <Entypo
-                name="shopping-bag"
-                style={{
-                  fontSize: 18,
-                  color: cores.backgroundMedium,
-                  padding: 12,
-                  borderRadius: 10,
-                  borderWidth: 1,
-                  backgroundColor: cores.backgroundligt,
-                }}
-              />
-            </TouchableOpacity>
+          <View style={{ position: 'absolute', top: 20, right: 20 }}>
             <TouchableOpacity>
               <MaterialCommunityIcons
                 name="cart"
@@ -40,7 +26,7 @@ const Home = () => {
               />
             </TouchableOpacity>
           </View>
-          <View style={{ marginBottom: 10, padding: 16 }}>
+          <View style={{ marginBottom: 10, padding: 16, marginTop: 50 }}>
             <Text style={{ fontSize: 30, color: cores.black, fontWeight: '400', letterSpacing: 1, marginBottom: 10 }}>Toy Market</Text>
             <Text style={{ fontSize: 14, color: cores.black, fontWeight: '400', letterSpacing: 1, lineHeight: 24 }}>O melhor lugar para você comprar sua Action Figure é aqui!</Text>
           </View>
