@@ -1,6 +1,6 @@
 import React from "react";
-import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
-import { cores, itens } from '../database/Database';
+import { View, ScrollView, TouchableOpacity, Text } from "react-native";
+import { cores } from '../database/Database';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { StatusBar } from "expo-status-bar";
 import ImageCarousel from "./ImageCarousel"; 
@@ -8,7 +8,7 @@ import ImageCarousel from "./ImageCarousel";
 const ProdutoInfo = ({ route }) => {
   const { produto } = route.params;
 
-  console.log(produto);
+  console.log();
 
   return (
     <View style={{
@@ -16,18 +16,22 @@ const ProdutoInfo = ({ route }) => {
       height: '100%',
       backgroundColor: cores.white,
       position: 'relative',
+      flexDirection: 'column',
     }}>
       <StatusBar backgroundColor={cores.backgroundligt} barStyle="darl-content" />
       <ScrollView>
         <View>
           <View style={{
             width: '100%',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
+            alignItems: 'center',
             paddingTop: 16,
             paddingLeft: 16,
           }}>
-            <TouchableOpacity>
+            <TouchableOpacity style={{
+              position: 'absolute',
+              top: 20, 
+              left: 20,
+            }}>
               <Entypo name="chevron-left"
                 style={{
                   fontSize: 18,
@@ -39,11 +43,14 @@ const ProdutoInfo = ({ route }) => {
               />
             </TouchableOpacity>
             <View style={{
-              
               paddingRight: 70,
+              flex: 1,
             }}>
-              {/* Renderize o componente ImageCarousel aqui */}
               <ImageCarousel images={[produto.imagemProd, ...produto.imagemProdList]} />
+            </View>
+            <View>
+              <Text style={{ fontSize: 20, color: cores.black, fontWeight: '400', letterSpacing: 1, marginBottom: 10 }}>{produto.nomeProd}</Text>
+              <Text style={{ fontSize: 14, color: cores.black, fontWeight: '400', letterSpacing: 1, lineHeight: 24 }}>{produto.descricao}</Text>
             </View>
           </View>
         </View>
