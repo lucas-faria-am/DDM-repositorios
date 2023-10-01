@@ -16,7 +16,12 @@ export const styles = StyleSheet.create({
       flex: 1,
       marginLeft: 16
     },
-  
+    
+    imagems: {
+      width: 50, 
+      height: 50
+    },
+
     title: {
       fontSize: 20,
       fontWeight: "bold",
@@ -26,5 +31,5 @@ export const styles = StyleSheet.create({
     description: {
       fontSize: 16,
       color: "#000"
-    },
+    }
   });
