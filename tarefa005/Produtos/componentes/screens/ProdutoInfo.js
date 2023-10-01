@@ -20,11 +20,11 @@ const ProdutoInfo = ({ route }) => {
         >
           <Entypo name="chevron-left" style={styles.iconPreto} />
         </TouchableOpacity>
-        <View style={{ marginTop: 100, flex: 1 }}>
+        <View style={{flex: 1 }}>
           <ImageCarousel images={[produto.imagemProd, ...produto.imagemProdList]} />
         </View>
       </View>
-      <View>
+      <View style={styles.containerTexto}>
         <Text style={styles.texto}>{produto.nomeProd}</Text>
         <Text>{produto.descricao}</Text>
         <Text style={styles.produtoPreco}>R$ {produto.precoProd.toFixed(2)}</Text>
@@ -50,6 +50,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   
+  containerTexto: {
+    marginBottom: 40,
+    marginLeft: 10,
+
+  },
 
   texto: {
     fontSize: 20,
