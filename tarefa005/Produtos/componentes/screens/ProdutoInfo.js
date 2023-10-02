@@ -14,7 +14,7 @@ const ProdutoInfo = ({ route }) => {
   return (
     <View style={{ flex: 1 }}>
       <StatusBar backgroundColor={cores.backgroundligt} barStyle="dark-content" />
-      <View style={{ backgroundColor: 'lightgrey', flex: 1 }}>
+      <View style={{ backgroundColor: 'rgba(253,130,0,255)', flex: 1 }}>
         <TouchableOpacity
           style={styles.botaoVoltar}
           onPress={() => navigation.navigate('Home')}
@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     padding: 12,
     backgroundColor: cores.white,
     borderRadius: 10,
+    backgroundColor: 'rgba(202,216,219,255)'
   },
   
   containerTexto: {

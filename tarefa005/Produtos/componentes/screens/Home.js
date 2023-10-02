@@ -44,7 +44,7 @@ const Home = () => {
             key={produto.id}
             onPress={() => navigation.navigate("ProdutoInfo", { produto })}
           >
-            <View style={{ marginBottom: 20, padding: 16, borderWidth: 1, borderColor: cores.backgroundMedium, borderRadius: 10 }}>
+            <View style={{ marginBottom: 20, padding: 16, borderWidth: 1, borderColor: cores.backgroundMedium, borderRadius: 10, backgroundColor: 'rgba(235,236,238,255)'}}>
               <Image source={produto.imagemProd} style={{ width: 100, height: 100 }} />
               <Text style={{ fontSize: 18, fontWeight: '500' }}>{produto.nomeProd}</Text>
               <Text style={{ fontSize: 14, fontWeight: '400', color: cores.black }}>{produto.descricao}</Text>
