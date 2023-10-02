@@ -6,6 +6,7 @@ import { StatusBar } from "expo-status-bar";
 import ImageCarousel from "./ImageCarousel";
 import { useNavigation } from '@react-navigation/native';
 
+
 const ProdutoInfo = ({ route }) => {
   const { produto } = route.params;
   const navigation = useNavigation();
@@ -26,7 +27,9 @@ const ProdutoInfo = ({ route }) => {
       </View>
       <View style={styles.containerTexto}>
         <Text style={styles.texto}>{produto.nomeProd}</Text>
-        <Text>{produto.descricao}</Text>
+        <Text style={styles.texto}>Descrição</Text>
+        <Text style={{marginTop: 10}}>{produto.descricao}</Text>
+        <Text style={styles.texto}>Valor</Text>
         <Text style={styles.produtoPreco}>R$ {produto.precoProd.toFixed(2)}</Text>
       </View>
     </View>
@@ -69,6 +72,11 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: cores.green,
     marginTop: 10,
+  },
+  
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover', 
   },
 });
 

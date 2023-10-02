@@ -1,14 +1,16 @@
 import React from "react";
-import { View, StatusBar, Text, ScrollView, TouchableOpacity, Image } from "react-native";
+import { View, StatusBar, Text, ScrollView, TouchableOpacity, Image, ImageBackground } from "react-native";
 import { cores, Itens } from '../database/Database';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
+import imagemFundo from '../database/imagens/uteis/fundo.jpg';
 
 const Home = () => {
     const navigation = useNavigation();
   return (
-    <View style={{ flex: 1, backgroundColor: cores.white }}>
+    <View style={{ flex: 1}}>
       <StatusBar backgroundColor={cores.white} barStyle="dark-content" />
+      <ImageBackground source={imagemFundo} style={{flex: 1, resizeMode: 'cover'}}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ padding: 16 }}>
           <View style={{ position: 'absolute', top: 20, right: 20 }}>
@@ -52,6 +54,7 @@ const Home = () => {
           ))}
         </View>
       </ScrollView>
+      </ImageBackground>
     </View>
   );
 };
