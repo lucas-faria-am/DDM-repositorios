@@ -1,4 +1,4 @@
-import SQLite from "react-native-sqlite-storage";
+import * as SQLite from 'expo-sqlite';
 
 type UserData = {
     name: string;
@@ -7,20 +7,12 @@ type UserData = {
 };
 
 export function db() {
-    const dataBase = SQLite.openDatabase(
-        {
-            name: "BancoPrincipal",
-            location: "default",
-        },
-        () => {},
-        (error) => {
-            console.log(error);
-        }
-    );
+    const dataBase = SQLite.openDatabase('banco.db');
 
+    console.log("asda")
     const createTable = () => {
         try {
-            dataBase.transaction((tx) => {
+            dataBase.transaction(tx => {
                 tx.executeSql(
                     "CREATE TABLE IF NOT EXISTS USER" +
                         "(ID INTEGER PRIMARY KEY AUTOINCREMENT, NOME VARCHAR(50), SOBRENOME VARCHAR(50), EMAIL VARCHAR(30));"
@@ -31,11 +23,11 @@ export function db() {
         }
     };
 
-    const insertToTable = (data: any) => {
+    const insertToTable = (data: UserData) => {
         try {
             dataBase.transaction((tx) => {
                 tx.executeSql(
-                    `INSERT INTO USER (NOME, SOBRENOME, EMAIL) VALUES ('${data.email}','${data.sobreNome}','${data.email}');`
+                    `INSERT INTO USER (NOME, SOBRENOME, EMAIL) VALUES (?,?,?)`, [data.name, data.sobreNome, data.email]
                 );
             });
         } catch (error) {
@@ -45,6 +37,6 @@ export function db() {
 
     return {
         createTable,
-        insertToTable,
+        insertToTable
     };
 }

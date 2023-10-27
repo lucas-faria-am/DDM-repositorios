@@ -13,6 +13,7 @@ type UserData = {
 }
 
 export function Main() {
+
     const { createTable, insertToTable } = db();
     const [name, setName] = useState("");
     const [sobreNome, setSobreNome] = useState("");
@@ -27,7 +28,7 @@ export function Main() {
             email,
         }
         console.log(data);
-        // insertToTable();
+      
         insertToTable(data);
     }
 
@@ -41,7 +42,6 @@ export function Main() {
                 placeholder="Nome"
                 keyboardType='default'
                 onChangeText={setName}
-
             />
             <Input
 
