@@ -1,31 +1,19 @@
 import React from "react";
-import { View, StatusBar, Text, ScrollView, TouchableOpacity, Image } from "react-native";
+import { View, StatusBar, Text, ScrollView, TouchableOpacity, Image, ImageBackground } from "react-native";
 import { cores, Itens } from '../database/Database';
-import Entypo from "react-native-vector-icons/Entypo";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
+import imagemFundo from '../database/imagens/uteis/fundo.jpg';
 
 const Home = () => {
     const navigation = useNavigation();
   return (
-    <View style={{ flex: 1, backgroundColor: cores.white }}>
+    <View style={{ flex: 1}}>
       <StatusBar backgroundColor={cores.white} barStyle="dark-content" />
+      <ImageBackground source={imagemFundo} style={{flex: 1, resizeMode: 'cover'}}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ padding: 16 }}>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <TouchableOpacity>
-              <Entypo
-                name="shopping-bag"
-                style={{
-                  fontSize: 18,
-                  color: cores.backgroundMedium,
-                  padding: 12,
-                  borderRadius: 10,
-                  borderWidth: 1,
-                  backgroundColor: cores.backgroundligt,
-                }}
-              />
-            </TouchableOpacity>
+          <View style={{ position: 'absolute', top: 20, right: 20 }}>
             <TouchableOpacity>
               <MaterialCommunityIcons
                 name="cart"
@@ -40,7 +28,7 @@ const Home = () => {
               />
             </TouchableOpacity>
           </View>
-          <View style={{ marginBottom: 10, padding: 16 }}>
+          <View style={{ marginBottom: 10, padding: 16, marginTop: 50 }}>
             <Text style={{ fontSize: 30, color: cores.black, fontWeight: '400', letterSpacing: 1, marginBottom: 10 }}>Toy Market</Text>
             <Text style={{ fontSize: 14, color: cores.black, fontWeight: '400', letterSpacing: 1, lineHeight: 24 }}>O melhor lugar para você comprar sua Action Figure é aqui!</Text>
           </View>
@@ -56,7 +44,7 @@ const Home = () => {
             key={produto.id}
             onPress={() => navigation.navigate("ProdutoInfo", { produto })}
           >
-            <View style={{ marginBottom: 20, padding: 16, borderWidth: 1, borderColor: cores.backgroundMedium, borderRadius: 10 }}>
+            <View style={{ marginBottom: 20, padding: 16, borderWidth: 1, borderColor: cores.backgroundMedium, borderRadius: 10, backgroundColor: 'rgba(235,236,238,255)'}}>
               <Image source={produto.imagemProd} style={{ width: 100, height: 100 }} />
               <Text style={{ fontSize: 18, fontWeight: '500' }}>{produto.nomeProd}</Text>
               <Text style={{ fontSize: 14, fontWeight: '400', color: cores.black }}>{produto.descricao}</Text>
@@ -66,6 +54,7 @@ const Home = () => {
           ))}
         </View>
       </ScrollView>
+      </ImageBackground>
     </View>
   );
 };
