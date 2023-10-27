@@ -2,10 +2,10 @@ import * as SQLite from "expo-sqlite";
 import { useState } from "react";
 
 type UserData = {
-    id: string;
-    name: string;
-    dataNasc: string;
-    email: string;
+    ID: string;
+    NOME: string;
+    DATANASC: string;
+    EMAIL: string;
 };
 
 export function db() {
@@ -52,7 +52,7 @@ export function db() {
             dataBase.transaction((tx) => {
                 tx.executeSql(
                     `INSERT INTO USERS (ID, NOME, DATANASC, EMAIL) VALUES (?,?,?,?)`,
-                    [data.id, data.name, data.dataNasc, data.email]
+                    [data.ID, data.NOME, data.DATANASC, data.EMAIL]
                 );
             });
         } catch (error) {

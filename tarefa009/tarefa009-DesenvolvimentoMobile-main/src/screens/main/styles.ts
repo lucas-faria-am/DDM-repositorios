@@ -33,8 +33,15 @@ export const Lista = styled.View`
 `;
 
 export const ListaItem = styled.View`
-    background-color: "#121212",
-    justi: "#000",
-    borderWidth: 1,
-    padding: 8,
+background-color: "#121212",
+justi: "#000",
+borderWidth: 1,
+padding: 8,
+`;
+
+export const ListaTitle = styled.Text`
+    font-size: 14px;
+    font-family: ${({ theme }) => theme.FONTS.REGULAR};
+    color: ${({ theme }) => theme.COLORS.BLACK};
+    margin-bottom: 32px;
 `;

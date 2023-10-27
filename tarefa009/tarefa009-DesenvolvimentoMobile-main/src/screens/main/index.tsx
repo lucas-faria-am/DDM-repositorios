@@ -4,25 +4,25 @@ import { ButtonClose } from '../../components/ButtonClose';
 import { Input } from '../../components/Input';
 import CloseApp from '../../components/closeApp';
 import { db } from '../../db/bancoLocal-config';
-import { ButtonContainer, Container, Lista, ListaItem, Subtitle, Title } from './styles';
+import { ButtonContainer, Container, Lista, ListaItem, ListaTitle, Subtitle, Title } from './styles';
 import { SQLResultSetRowList } from 'expo-sqlite';
 import { FlatList, SafeAreaView, TouchableOpacity, View, Text } from "react-native";
 
 type UserData = {
-    id: string;
-    nome: string;
-    dataNasc: string;
-    email: string;
+    ID: string;
+    NOME: string;
+    DATANASC: string;
+    EMAIL: string;
 }
 
 export function Main() {
 
 
     const { createTable, insertToTable, selectFromTable } = db();
-    const [id, setId] = useState<string>("");
-    const [name, setName] = useState("");
-    const [dataNasc, setDataNasc] = useState("");
-    const [email, setEmail] = useState("");
+    const [ID, setId] = useState<string>("");
+    const [NOME, setName] = useState("");
+    const [DATANASC, setDataNasc] = useState("");
+    const [EMAIL, setEmail] = useState("");
     const [users, setUsers] = useState<UserData[]>();
 
     useEffect(() => {
@@ -37,10 +37,10 @@ export function Main() {
 
     const salvarDados = () => {
         const data = {
-            id,
-            name,
-            dataNasc,
-            email,
+            ID,
+            NOME,
+            DATANASC,
+            EMAIL,
         }
         console.log(data);
 
@@ -83,16 +83,17 @@ export function Main() {
             </ButtonContainer>
 
             <Lista >
-                <Text ></Text>
+                <ListaTitle >Users</ListaTitle>
                 {users?.map((user) => (
                     <ListaItem
-                        key={user.id}
+                        key={user.ID}
                     // onPress={() => onPressItem && onPressItem(id)}
                     >
-                        <Text>{user.id}</Text>
-                        <Text>{user.nome}</Text>
-                        <Text>{user.dataNasc}</Text>
-                        <Text>{user.email}</Text>
+                        <Text>Teste</Text>
+                        <Text>{user.ID}</Text>
+                        <Text>{user.NOME}</Text>
+                        <Text>{user.DATANASC}</Text>
+                        <Text>{user.EMAIL}</Text>
                     </ListaItem>
                 ))}
             </Lista>
