@@ -1,19 +1,18 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
-import { useColorScheme } from 'react-native';
+import { StyleSheet, useColorScheme } from 'react-native';
 
 export {
   // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
+  ErrorBoundary
 } from 'expo-router';
 
-export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
-};
+// export const unstable_settings = {
+//   // Ensure that reloading on `/modal` keeps a back button present.
+//   initialRouteName: '(tabs)',
+// };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -46,11 +45,17 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      </Stack>
-    </ThemeProvider>
+    <Stack initialRouteName='index'>
+      <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="funcoesNativas/index" options={{ title: 'Funções nativas!', }} />
+      <Stack.Screen name="camera/index" options={{ title: 'Camera', presentation: 'modal' }} />
+      <Stack.Screen name="contatos/index" options={{ title: 'Lista de contatos', presentation: 'modal' }} />
+    </Stack>
   );
 }
+
+// const styles = StyleSheet.create({
+//   stack: {
+//     backgroundColor: "#0b0130e5",
+//   },
+// });

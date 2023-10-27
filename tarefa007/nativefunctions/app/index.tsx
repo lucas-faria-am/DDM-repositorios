@@ -1,25 +1,26 @@
-import { Text, StyleSheet, View, Button  } from 'react-native';
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Botao } from '../components/botao';
+import { Text, StyleSheet, View, Button } from 'react-native';
 import { router } from 'expo-router';
+import Container from '../components/Container';
+import { Botao } from '../components/Botao';
 
 
 
-export default function TabOneScreen() {
-    const handleNav = () => {
+export default function BemVindo() {
+
+    const handleRouter = () => {
         router.replace('/funcoesNativas/')
     }
 
     return (
-        <View style={styles.container}>
+        <Container>
             <Text style={styles.title1}>ADS</Text>
             <View style={styles.separator} />
             <Text style={styles.title2}>DDM</Text>
             <View style={styles.separator} />
             <Text style={styles.title3}>Funcionalidades nativas</Text>
             <View style={styles.separator} />
-            <Botao title='Entrar para as funcionalidades' action={handleNav} />
-        </View>
+            <Botao title='Entrar para as funcionalidades' action={handleRouter} />
+        </Container>
     );
 }
 
@@ -28,6 +29,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        // backgroundColor:  '#0b0130e5'
     },
     title1: {
         fontSize: 30,
