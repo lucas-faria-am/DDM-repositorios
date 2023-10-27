@@ -9,6 +9,7 @@ type UserData = {
 export function db() {
     const dataBase = SQLite.openDatabase('banco.db');
 
+    console.log("asda")
     const createTable = () => {
         try {
             dataBase.transaction(tx => {
