@@ -4,46 +4,47 @@ import { ButtonClose } from '../../components/ButtonClose';
 import { Input } from '../../components/Input';
 import CloseApp from '../../components/closeApp';
 import { db } from '../../db/bancoLocal-config';
-import { ButtonContainer, Container, Lista, ListaItem, ListaTitle, Subtitle, Title } from './styles';
+import { ButtonContainer, Container, Lista, ListaItem, Subtitle, Title } from './styles';
 import { SQLResultSetRowList } from 'expo-sqlite';
-import { FlatList, SafeAreaView, TouchableOpacity, View, Text } from "react-native";
+import { FlatList, SafeAreaView, TouchableOpacity, View, Text, ScrollView } from "react-native";
 
 type UserData = {
-    ID: string;
-    NOME: string;
-    DATANASC: string;
-    EMAIL: string;
+    id: string;
+    nome: string;
+    dataNasc: string;
+    email: string;
 }
 
 export function Main() {
 
 
     const { createTable, insertToTable, selectFromTable } = db();
-    const [ID, setId] = useState<string>("");
-    const [NOME, setName] = useState("");
-    const [DATANASC, setDataNasc] = useState("");
-    const [EMAIL, setEmail] = useState("");
-    const [users, setUsers] = useState<UserData[]>();
+    const [id, setId] = useState<string>("");
+    const [name, setName] = useState("");
+    const [dataNasc, setDataNasc] = useState("");
+    const [email, setEmail] = useState("");
+    const [users, setUsers] = useState<any>();
+
+
 
     useEffect(() => {
-        createTable();
-        const users = selectFromTable();
+        const fetchData = async () => {
+            createTable();
+            const retornoBanco = await selectFromTable();
+            console.log(retornoBanco);
+            setUsers(retornoBanco);
+        };
 
-        if (users) {
-            setUsers(users);
-        }
-
+        fetchData();
     }, [])
 
     const salvarDados = () => {
         const data = {
-            ID,
-            NOME,
-            DATANASC,
-            EMAIL,
+            id,
+            name,
+            dataNasc,
+            email,
         }
-        console.log(data);
-
         insertToTable(data);
     }
 
@@ -82,22 +83,18 @@ export function Main() {
                 <ButtonClose title="Fechar" onPress={() => { CloseApp() }} />
             </ButtonContainer>
 
+
             <Lista >
-                <ListaTitle >Users</ListaTitle>
-                {users?.map((user) => (
-                    <ListaItem
-                        key={user.ID}
-                    // onPress={() => onPressItem && onPressItem(id)}
-                    >
-                        <Text>Teste</Text>
+                <Text >usuários</Text>
+                {users?.map(user => (
+                    <View key={user.ID}>
                         <Text>{user.ID}</Text>
                         <Text>{user.NOME}</Text>
                         <Text>{user.DATANASC}</Text>
                         <Text>{user.EMAIL}</Text>
-                    </ListaItem>
+                    </View>
                 ))}
             </Lista>
-
         </Container>
     );
 }

@@ -2,10 +2,10 @@ import * as SQLite from "expo-sqlite";
 import { useState } from "react";
 
 type UserData = {
-    ID: string;
-    NOME: string;
-    DATANASC: string;
-    EMAIL: string;
+    id: string;
+    name: string;
+    dataNasc: string;
+    email: string;
 };
 
 export function db() {
@@ -26,33 +26,32 @@ export function db() {
         }
     };
 
-    const selectFromTable = () => {
-        try {
-            dataBase.transaction((tx) => {
-                tx.executeSql(
-                    "SELECT * FROM USERS;",
-                    [],
-                    (_, { rows: _array }) => {
-                        console.log("\n Dados da tabela: ", _array);
-                        setUsers(_array);
-                    }
-
-                    //   error => console.error('Erro ao consultar dados na tabela:', error)
-                );
-            });
-            return users;
-        } catch (error) {
-            console.error(error);
-            return undefined;
-        }
+    const selectFromTable = async () => {
+        return new Promise((resolve, reject) => {
+            try {
+                dataBase.transaction((tx) => {
+                    tx.executeSql("SELECT * FROM USERS;", [], (tx, results) => {
+                        const userData = [];
+                        for (let i = 0; i < results.rows.length; i++) {
+                            userData.push(results.rows.item(i));
+                        }
+                        resolve(userData);
+                    });
+                });
+            } catch (error) {
+                console.error(error);
+                reject(error);
+            }
+        });
     };
 
     const insertToTable = (data: UserData) => {
         try {
+            console.log(data);
             dataBase.transaction((tx) => {
                 tx.executeSql(
                     `INSERT INTO USERS (ID, NOME, DATANASC, EMAIL) VALUES (?,?,?,?)`,
-                    [data.ID, data.NOME, data.DATANASC, data.EMAIL]
+                    [data.id, data.name, data.dataNasc, data.email]
                 );
             });
         } catch (error) {
