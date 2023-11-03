@@ -1,4 +1,3 @@
-import { TouchableOpacityProps } from "react-native";
 import styled from "styled-components/native";
 
 type Props = {

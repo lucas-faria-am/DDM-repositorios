@@ -2,36 +2,20 @@ import React, { useState } from 'react';
 import AppButton from '../../components/button/AppButton';
 import { Container } from '../../components/container/Container';
 import AppInputMask from '../../components/input/AppInputMask';
-import { DatabaseConnection } from '../../database/database-connection';
-import { delUser } from '../../services/dbActions';
-
-const db = DatabaseConnection.getConnection();
+import { delUser, getUser } from '../../services/dbActions';
 
 const DeleteUser = () => {
   const [inputUserId, setInputUserId] = useState('');
-  const [existUser, setExistUser] = useState(false);
 
-  const handleDelete = () => {
-    db.transaction((tx) => {
-
-      tx.executeSql(
-        'SELECT * FROM table_user where user_id = ?',
-        [inputUserId],
-        (tx, results) => {
-          var len = results.rows.length;
-          if (len > 0) {
-            setExistUser(true);
-          } else {
-            alert('Usuário não encontrado !');
-            return;
-          }
-        }
-      );
-
-      if (existUser) {
+  const handleDelete = async () => {
+    try {
+      const user = await getUser(inputUserId);
+      if (user) {
         delUser(inputUserId);
       }
-    });
+    } catch (error: any) {
+      alert(error.message);
+    }
   };
 
   return (
@@ -42,6 +26,7 @@ const DeleteUser = () => {
           (inputUserId) => setInputUserId(inputUserId)
         }
         type="only-numbers"
+        keyboardType="numeric"
       />
       <AppButton title="Excluir Usuário" customClick={handleDelete} />
     </Container>

@@ -1,25 +1,19 @@
 import React, { useState } from 'react';
 import {
-  View,
-  ScrollView,
-  KeyboardAvoidingView,
-  Alert,
-  SafeAreaView,
-  Text,
+  ScrollView
 } from 'react-native';
-import AppButton from '../../components/button/AppButton';
 import AppTitle from '../../components/appTitle/AppTitle';
-import AppTextInput from '../../components/input/AppInput';
-import { DatabaseConnection } from '../../database/database-connection';
-import { router } from 'expo-router';
+import AppButton from '../../components/button/AppButton';
 import { Container } from '../../components/container/Container';
-import * as S from './styles';
+import AppTextInput from '../../components/input/AppInput';
 import AppInputMask from '../../components/input/AppInputMask';
+import { validationFields } from '../../functions/validationFields';
+import { getUser, updateUser } from '../../services/dbActions';
+import * as S from './styles';
 
-const db = DatabaseConnection.getConnection();
 
 const UpdateUser = () => {
-  const [inputUserId, setInputUserId] = useState('');
+  const [userId, setUserId] = useState('');
   const [userName, setUserName] = useState('');
   const [userDate, setUserDate] = useState('');
   const [userEmail, setUserEmail] = useState('');
@@ -30,71 +24,18 @@ const UpdateUser = () => {
     setUserEmail(email);
   };
 
-  const searchUser = () => {
-    console.log(inputUserId);
-    db.transaction((tx) => {
-      tx.executeSql(
-        'SELECT * FROM table_user where user_id = ?',
-        [inputUserId],
-        (tx, results) => {
-          var len = results.rows.length;
-          if (len > 0) {
-            let res = results.rows.item(0);
-            updateAllStates(
-              res.user_name,
-              res.user_date,
-              res.user_email
-            );
-          } else {
-            alert('Usuário não encontrado!');
-            updateAllStates('', '', '');
-          }
-        }
-      );
-    });
+  const searchUser = async () => {
+    try {
+      const user = await getUser(userId);
+      updateAllStates(user.user_name, user.user_date, user.user_email);
+    } catch (error: any) {
+      alert(error.message);
+    }
   };
-  let updateUser = () => {
-    console.log(inputUserId, userName, userDate, userEmail);
+  const attUser = async () => {
 
-    if (!inputUserId) {
-      alert('Por Favor informe o ID!');
-      return;
-    }
-    if (!userName) {
-      alert('Por favor informe o Nome !');
-      return;
-    }
-    if (!userDate) {
-      alert('Por Favor informe a data !');
-      return;
-    }
-    if (!userEmail) {
-      alert('Por Favor informe o email !');
-      return;
-    }
-
-    db.transaction((tx) => {
-      tx.executeSql(
-        'UPDATE table_user set user_name=?, user_date=? , user_email=? where user_id=?',
-        [userName, userDate, userEmail, inputUserId],
-        (tx, results) => {
-          console.log('Results', results.rowsAffected);
-          if (results.rowsAffected > 0) {
-            Alert.alert(
-              'Sucesso',
-              'Usuário atualizado com sucesso !!',
-              [
-                {
-                  text: 'Ok',
-                  onPress: () => router.back(),
-                },
-              ],
-              { cancelable: false }
-            );
-          } else alert('Erro ao atualizar o usuário');
-        }
-      );
-    });
+    await validationFields(userId, userName, userDate, userEmail);
+    await updateUser(userId, userName, userDate, userEmail);
   };
 
   return (
@@ -107,9 +48,10 @@ const UpdateUser = () => {
           <AppInputMask
             placeholder="Entre com o ID do Usuário"
             onChangeText={
-              (inputUserId) => setInputUserId(inputUserId)
+              (userId) => setUserId(userId)
             }
             type="only-numbers"
+            keyboardType="numeric"
           />
           <AppButton
             title="Buscar Usuário"
@@ -130,7 +72,7 @@ const UpdateUser = () => {
             }
             maxLength={10}
             keyboardType="numeric"
-            type="only-numbers"
+            type="datetime"
           />
           <AppTextInput
             value={userEmail}
@@ -138,11 +80,11 @@ const UpdateUser = () => {
             onChangeText={
               (userEmail) => setUserEmail(userEmail)
             }
-            keyboardType="numeric"
+            keyboardType="email-address"
           />
           <AppButton
             title="Atualizar Usuário"
-            customClick={updateUser}
+            customClick={attUser}
           />
         </S.KeyBoardView>
       </ScrollView>

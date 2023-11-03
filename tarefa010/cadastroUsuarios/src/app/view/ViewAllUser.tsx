@@ -5,31 +5,23 @@ import { UserProps } from '../../@types/UserProps';
 import { Container } from '../../components/container/Container';
 import * as S from './styles';
 import UserCard from '../../components/userCard/UserCard';
-
-const db = DatabaseConnection.getConnection();
-
+import { getAllUser } from '../../services/dbActions';
 
 
 const ViewAllUser = () => {
-  const [flatListItems, setFlatListItems] = useState<UserProps[] | undefined>(undefined);
+  const [flatListItems, setFlatListItems] = useState<UserProps[]>();
+  const [message, setMessage] = useState('');
 
-  useEffect(() => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        'SELECT * FROM table_user',
-        [],
-        (tx, results) => {
-          var temp: UserProps[] = [];
-          for (let i = 0; i < results.rows.length; ++i) {
-            temp.push(results.rows.item(i));
-          }
-          setFlatListItems(temp);
-          console.log("antes do set", flatListItems);
-        }
-      );
-    });
+  const getUsers = async () => {
+    try {
+      const user = await getAllUser();
+      setFlatListItems(user);
+    } catch (error: any) {
+      setMessage(error.message);
+    }
 
-  }, []);
+  }
+  getUsers();
 
   return (
     <Container>
@@ -42,7 +34,7 @@ const ViewAllUser = () => {
         />
       }
       {!flatListItems &&
-        <S.TextNotFound>Não há usuarios cadastrados</S.TextNotFound>
+        <S.TextNotFound>{message}</S.TextNotFound>
       }
     </Container>
   );

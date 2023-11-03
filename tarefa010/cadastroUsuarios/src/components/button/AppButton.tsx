@@ -1,5 +1,4 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import * as S from './styles';
 
 const AppButton = (props: { customClick: () => void, title: string }) => {

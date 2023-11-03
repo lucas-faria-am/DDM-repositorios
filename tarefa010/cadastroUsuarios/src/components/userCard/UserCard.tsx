@@ -13,13 +13,13 @@ const UserCard = (user: UserProps) => {
       <S.Textbottom>{user.user_id}</S.Textbottom>
 
       <S.Textheader>Nome</S.Textheader>
-      <S.Textbottom>{user.user_email}</S.Textbottom>
+      <S.Textbottom>{user.user_name}</S.Textbottom>
 
       <S.Textheader>Data</S.Textheader>
       <S.Textbottom>{user.user_date}</S.Textbottom>
 
       <S.Textheader>Email</S.Textheader>
-      <S.Textbottom>{user.user_name}</S.Textbottom>
+      <S.Textbottom>{user.user_email}</S.Textbottom>
     </S.Container>
   );
 };

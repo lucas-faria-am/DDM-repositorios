@@ -1,16 +1,13 @@
-import React, { useEffect } from 'react';
-import { View, SafeAreaView } from 'react-native';
-import AppClose from '../functions/AppClose';
-import { DatabaseConnection } from '../database/database-connection';
-import { router } from "expo-router";
 import { FontAwesome } from '@expo/vector-icons';
-import { createTable } from '../services/dbActions';
+import { router } from "expo-router";
+import React, { useEffect } from 'react';
 import { Container } from '../components/container/Container';
+import AppClose from '../functions/AppClose';
+import { createTable } from '../services/dbActions';
 import * as S from './styles';
 
 
 const HomeScreen = () => {
-
 
     useEffect(() => {
         createTable();
