@@ -10,6 +10,9 @@ import { validationFields } from '../../functions/validationFields';
 import { registerUser } from '../../services/dbActions';
 import * as S from "./styles";
 
+
+
+
 const RegisterUser = () => {
 
   const [userId, setUserId] = useState('');
@@ -17,8 +20,10 @@ const RegisterUser = () => {
   const [userDate, setUserDate] = useState('');
   const [userEmail, setUserEmail] = useState('');
 
-  const register_user = async () => {
 
+
+  const register_user = async () => {
+    
     await validationFields(userId, userName, userDate, userEmail);
     await registerUser(userId, userName, userDate, userEmail);
 
