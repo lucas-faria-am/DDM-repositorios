@@ -1,19 +1,13 @@
 import React from 'react';
 import { View, TextInput, TextInputProps } from 'react-native';
+import * as S from "./styles";
 
 type InputProps = TextInputProps;
 
-const AppTextinput = (props: InputProps) => {
+const AppInput = (props: InputProps) => {
   return (
-    <View
-      style={{
-        marginLeft: 35,
-        marginRight: 35,
-        marginTop: 10,
-        borderColor: '#00AD98',
-        borderWidth: 1,
-      }}>
-      <TextInput
+    <S.Container>
+      <S.Input
         {...props}
         underlineColorAndroid="transparent"
         placeholder={props.placeholder}
@@ -27,10 +21,9 @@ const AppTextinput = (props: InputProps) => {
         style={props.style}
         blurOnSubmit={false}
         value={props.value}
-
       />
-    </View>
+    </S.Container>
   );
 };
 
-export default AppTextinput;
+export default AppInput;

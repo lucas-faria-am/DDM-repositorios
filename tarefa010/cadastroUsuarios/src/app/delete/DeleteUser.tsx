@@ -1,58 +1,50 @@
 import React, { useState } from 'react';
-import { View, Alert, SafeAreaView } from 'react-native';
-import AppButton from '../../components/AppButton';
-import AppTextInput from '../../components/AppTextInput';
+import AppButton from '../../components/button/AppButton';
+import { Container } from '../../components/container/Container';
+import AppInputMask from '../../components/input/AppInputMask';
 import { DatabaseConnection } from '../../database/database-connection';
-import { router } from 'expo-router';
-import { Container } from '../../components/Container';
+import { delUser } from '../../services/dbActions';
 
 const db = DatabaseConnection.getConnection();
 
 const DeleteUser = () => {
   const [inputUserId, setInputUserId] = useState('');
+  const [existUser, setExistUser] = useState(false);
 
-  const deleteUser = () => {
+  const handleDelete = () => {
     db.transaction((tx) => {
+
       tx.executeSql(
-        'DELETE FROM  table_user where user_id=?',
+        'SELECT * FROM table_user where user_id = ?',
         [inputUserId],
         (tx, results) => {
-          console.log('Results', results.rowsAffected);
-          if (results.rowsAffected > 0) {
-            Alert.alert(
-              'Sucesso',
-              'Usuário Excluído com Sucesso !',
-              [
-                {
-                  text: 'Ok',
-                  onPress: () => router.push('/'),
-                },
-              ],
-              { cancelable: false }
-            );
+          var len = results.rows.length;
+          if (len > 0) {
+            setExistUser(true);
           } else {
-            alert('Por favor entre com um código de usuário válido !');
+            alert('Usuário não encontrado !');
+            return;
           }
         }
       );
+
+      if (existUser) {
+        delUser(inputUserId);
+      }
     });
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <Container>
-        <View style={{ flex: 1 }}>
-          <AppTextInput
-            placeholder="Entre com o Código do Usuário"
-            onChangeText={
-              (inputUserId) => setInputUserId(inputUserId)
-            }
-            style={{ padding: 10 }}
-          />
-          <AppButton title="Excluir Usuário" customClick={deleteUser} />
-        </View>
-      </Container>
-    </SafeAreaView>
+    <Container>
+      <AppInputMask
+        placeholder="Entre com o Código do Usuário"
+        onChangeText={
+          (inputUserId) => setInputUserId(inputUserId)
+        }
+        type="only-numbers"
+      />
+      <AppButton title="Excluir Usuário" customClick={handleDelete} />
+    </Container>
   );
 };
 

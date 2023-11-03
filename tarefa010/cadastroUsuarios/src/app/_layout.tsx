@@ -37,7 +37,7 @@ export default function LayoutIndex() {
             <Stack.Screen name="view/ViewUser" options={{
                 title: "Visualizar Usuário",
                 headerStyle: {
-                    backgroundColor: '#F9AD29',
+                    backgroundColor: '#ac7415',
                 },
                 headerTintColor: "#fff",
                 headerTitleStyle: {
@@ -48,7 +48,7 @@ export default function LayoutIndex() {
             <Stack.Screen name="view/ViewAllUser" options={{
                 title: "Visualizar Todos os Usuários",
                 headerStyle: {
-                    backgroundColor: '#384F62',
+                    backgroundColor: '#348122',
                 },
                 headerTintColor: "#fff",
                 headerTitleStyle: {

@@ -5,8 +5,8 @@ import { DatabaseConnection } from '../database/database-connection';
 import { router } from "expo-router";
 import { FontAwesome } from '@expo/vector-icons';
 import { createTable } from '../services/dbActions';
-import { Container } from '../components/Container';
-import { CardButton, CardTitle } from './styles';
+import { Container } from '../components/container/Container';
+import * as S from './styles';
 
 
 const HomeScreen = () => {
@@ -18,7 +18,7 @@ const HomeScreen = () => {
 
     return (
         <Container>
-            <CardButton
+            <S.CardButton
                 btnColor='#2992C4'
                 onPress={() => router.push('/register/RegisterUser')}
             >
@@ -27,10 +27,10 @@ const HomeScreen = () => {
                     name="user-plus" size={24}
                     color="white"
                 />
-                <CardTitle>Registrar Usuário</CardTitle>
-            </CardButton>
+                <S.CardTitle>Registrar Usuário</S.CardTitle>
+            </S.CardButton>
 
-            <CardButton
+            <S.CardButton
                 btnColor='#A45BB9'
                 onPress={() => router.push('/update/UpdateUser')}
             >
@@ -39,11 +39,11 @@ const HomeScreen = () => {
                     name="user-circle" size={24}
                     color="white"
                 />
-                <CardTitle>Atualizar Usuário</CardTitle>
-            </CardButton>
+                <S.CardTitle>Atualizar Usuário</S.CardTitle>
+            </S.CardButton>
 
-            <CardButton
-                btnColor='#F9AD29'
+            <S.CardButton
+                btnColor='#ac7415'
                 onPress={() => router.push('/view/ViewUser')}
             >
                 <FontAwesome
@@ -51,11 +51,11 @@ const HomeScreen = () => {
                     name="user" size={24}
                     color="white"
                 />
-                <CardTitle>Visualizar Usuário</CardTitle>
-            </CardButton>
+                <S.CardTitle>Visualizar Usuário</S.CardTitle>
+            </S.CardButton>
 
-            <CardButton
-                btnColor='#51DC32'
+            <S.CardButton
+                btnColor='#348122'
                 onPress={() => router.push('/view/ViewAllUser')}
             >
                 <FontAwesome
@@ -63,10 +63,10 @@ const HomeScreen = () => {
                     name="users" size={24}
                     color="white"
                 />
-                <CardTitle>Visualizar Todos</CardTitle>
-            </CardButton>
+                <S.CardTitle>Visualizar Todos</S.CardTitle>
+            </S.CardButton>
 
-            <CardButton
+            <S.CardButton
                 btnColor='#384F62'
                 onPress={() => router.push('/delete/DeleteUser')}
             >
@@ -75,10 +75,10 @@ const HomeScreen = () => {
                     name="user-times" size={24}
                     color="white"
                 />
-                <CardTitle>Excluir Usuário</CardTitle>
-            </CardButton>
+                <S.CardTitle>Excluir Usuário</S.CardTitle>
+            </S.CardButton>
 
-            <CardButton
+            <S.CardButton
                 btnColor='#D1503A'
                 onPress={() => AppClose()}
             >
@@ -87,8 +87,8 @@ const HomeScreen = () => {
                     name="close" size={24}
                     color="white"
                 />
-                <CardTitle>FecharApp</CardTitle>
-            </CardButton>
+                <S.CardTitle>FecharApp</S.CardTitle>
+            </S.CardButton>
         </Container>
     );
 };

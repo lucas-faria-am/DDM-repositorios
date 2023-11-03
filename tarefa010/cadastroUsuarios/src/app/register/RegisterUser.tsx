@@ -6,12 +6,13 @@ import {
   Alert,
   SafeAreaView,
 } from 'react-native';
-import AppButton from '../../components/AppButton';
-import AppTextInput from '../../components/AppTextInput';
+import AppButton from '../../components/button/AppButton';
+import AppTextInput from '../../components/input/AppInput';
 import { DatabaseConnection } from '../../database/database-connection';
 import { router } from "expo-router";
-import { SafeArea } from './styles';
-import { Container } from '../../components/Container';
+import * as S from "./styles";
+import { Container } from '../../components/container/Container';
+import AppInputMask from '../../components/input/AppInputMask';
 
 const db = DatabaseConnection.getConnection();
 
@@ -67,51 +68,45 @@ const RegisterUser = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <Container>
-        <View style={{ flex: 1 }}>
-          <ScrollView keyboardShouldPersistTaps="handled">
-            <KeyboardAvoidingView
-              behavior="padding"
-              style={{ flex: 1, justifyContent: 'space-between' }}>
-              <AppTextInput
-                placeholder="Entre com o ID"
-                onChangeText={
-                  (userId: string) => setUserId(userId)
-                }
-                keyboardType="numeric"
-                maxLength={10}
-                style={{ padding: 10 }}
-              />
-              <AppTextInput
-                placeholder="Entre com o Nome"
-                onChangeText={
-                  (userName: string) => setUserName(userName)
-                }
-                style={{ padding: 10 }}
-              />
-              <AppTextInput
-                placeholder="Entre com a data"
-                onChangeText={
-                  (userDate: string) => setUserDate(userDate)
-                }
-                maxLength={10}
-                keyboardType="numeric"
-                style={{ padding: 10 }}
-              />
-              <AppTextInput
-                placeholder="Entre com o Email"
-                onChangeText={
-                  (userEmail: string) => setUserEmail(userEmail)
-                }
-                style={{ padding: 10 }}
-              />
-              <AppButton title="Salvar" customClick={register_user} />
-            </KeyboardAvoidingView>
-          </ScrollView>
-        </View>
-      </Container>
-    </SafeAreaView>
+    <Container>
+      <ScrollView keyboardShouldPersistTaps="handled">
+        <S.KeyBoardView
+          behavior="padding"
+        >
+          <AppInputMask
+            placeholder="Entre com o ID"
+            onChangeText={
+              (userId: string) => setUserId(userId)
+            }
+            keyboardType="numeric"
+            maxLength={10}
+            type="only-numbers"
+          />
+          <AppTextInput
+            placeholder="Entre com o Nome"
+            onChangeText={
+              (userName: string) => setUserName(userName)
+            }
+          />
+          <AppInputMask
+            placeholder="Entre com a data"
+            onChangeText={
+              (userDate: string) => setUserDate(userDate)
+            }
+            maxLength={10}
+            keyboardType="numeric"
+            type="datetime"
+          />
+          <AppTextInput
+            placeholder="Entre com o Email"
+            onChangeText={
+              (userEmail: string) => setUserEmail(userEmail)
+            }
+          />
+          <AppButton title="Salvar" customClick={register_user} />
+        </S.KeyBoardView>
+      </ScrollView>
+    </Container>
   );
 };
 

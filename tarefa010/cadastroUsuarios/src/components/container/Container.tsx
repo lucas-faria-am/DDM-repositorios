@@ -1,6 +1,7 @@
 import React from "react";
 import { View } from "react-native"
 import styled from "styled-components/native"
+import * as S from "./styles";
 
 type ContainerProps = {
     children: React.ReactNode;
@@ -8,13 +9,8 @@ type ContainerProps = {
 
 export const Container = ({ children }: ContainerProps) => {
     return (
-        <AreaContainer >{children}</AreaContainer>
+        <S.AreaContainer >{children}</S.AreaContainer>
     )
 }
 
 
-const AreaContainer = styled.SafeAreaView`
-    flex: 1;
-    padding-top: 10px;
-    background: #050201;
-`;

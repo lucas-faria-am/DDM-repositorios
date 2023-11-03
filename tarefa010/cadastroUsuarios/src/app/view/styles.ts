@@ -1,5 +1,4 @@
 import styled from "styled-components/native";
-import { UserProps } from "../../@types/UserProps";
 
 export const Textheader = styled.Text`
     color: #fff;

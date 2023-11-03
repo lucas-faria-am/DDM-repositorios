@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { FlatList, Text, View, SafeAreaView, StyleSheet } from 'react-native';
 import { DatabaseConnection } from '../../database/database-connection';
 import { UserProps } from '../../@types/UserProps';
-import { Container } from '../../components/Container';
-import { ItemListView, TextNotFound, Textbottom, Textheader } from './styles';
+import { Container } from '../../components/container/Container';
+import * as S from './styles';
+import UserCard from '../../components/userCard/UserCard';
 
 const db = DatabaseConnection.getConnection();
 
@@ -11,7 +12,6 @@ const db = DatabaseConnection.getConnection();
 
 const ViewAllUser = () => {
   const [flatListItems, setFlatListItems] = useState<UserProps[] | undefined>(undefined);
-  const [usersExist, setUsersExist] = useState<boolean>(true);
 
   useEffect(() => {
     db.transaction((tx) => {
@@ -29,53 +29,22 @@ const ViewAllUser = () => {
       );
     });
 
-    if (flatListItems === undefined) {
-      setUsersExist(false);
-    }
-
   }, []);
 
-  const listItemView = (item: UserProps) => {
-    return (
-      <ItemListView
-        key={item.user_id}
-      >
-        <Textheader>Código</Textheader>
-        <Textbottom>{item.user_id}</Textbottom>
-
-        <Textheader>Nome</Textheader>
-        <Textbottom>{item.user_name}</Textbottom>
-
-        <Textheader>Data</Textheader>
-        <Textbottom>{item.user_date}</Textbottom>
-
-        <Textheader>Email</Textheader>
-        <Textbottom>{item.user_email}</Textbottom>
-
-
-      </ItemListView>
-    );
-  };
-
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <Container>
-        <View style={{ flex: 1 }}>
-          {usersExist &&
-            <FlatList
-              style={{ marginTop: 30 }}
-              contentContainerStyle={{ paddingHorizontal: 20 }}
-              data={flatListItems}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({ item }) => listItemView(item)}
-            />
-          }
-          {!usersExist &&
-            <TextNotFound>Não há usuarios cadastrados</TextNotFound>
-          }
-        </View>
-      </Container>
-    </SafeAreaView>
+    <Container>
+      {flatListItems &&
+        <FlatList
+          style={{ marginTop: 30 }}
+          data={flatListItems}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => UserCard(item)}
+        />
+      }
+      {!flatListItems &&
+        <S.TextNotFound>Não há usuarios cadastrados</S.TextNotFound>
+      }
+    </Container>
   );
 };
 

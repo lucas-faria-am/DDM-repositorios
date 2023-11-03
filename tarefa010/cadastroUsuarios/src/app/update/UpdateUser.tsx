@@ -7,13 +7,14 @@ import {
   SafeAreaView,
   Text,
 } from 'react-native';
-import AppButton from '../../components/AppButton';
-import AppTitle from '../../components/AppTitle';
-import AppTextInput from '../../components/AppTextInput';
+import AppButton from '../../components/button/AppButton';
+import AppTitle from '../../components/appTitle/AppTitle';
+import AppTextInput from '../../components/input/AppInput';
 import { DatabaseConnection } from '../../database/database-connection';
 import { router } from 'expo-router';
-import { Container } from '../../components/Container';
-
+import { Container } from '../../components/container/Container';
+import * as S from './styles';
+import AppInputMask from '../../components/input/AppInputMask';
 
 const db = DatabaseConnection.getConnection();
 
@@ -85,7 +86,7 @@ const UpdateUser = () => {
               [
                 {
                   text: 'Ok',
-                  onPress: () => router.push('/'),
+                  onPress: () => router.back(),
                 },
               ],
               { cancelable: false }
@@ -97,61 +98,55 @@ const UpdateUser = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <Container>
-        <View style={{ flex: 1 }}>
-          <ScrollView keyboardShouldPersistTaps="handled">
-            <KeyboardAvoidingView
-              behavior="padding"
-              style={{ flex: 1, justifyContent: 'space-between' }}>
-              <AppTitle text="Filtro de Usuário" />
-              <AppTextInput
-                placeholder="Entre com o ID do Usuário"
-                style={{ padding: 10 }}
-                onChangeText={
-                  (inputUserId) => setInputUserId(inputUserId)
-                }
-              />
-              <AppButton
-                title="Buscar Usuário"
-                customClick={searchUser}
-              />
-              <AppTextInput
-                placeholder="Entre com o Nome"
-                value={userName}
-                style={{ padding: 10 }}
-                onChangeText={
-                  (userName) => setUserName(userName)
-                }
-              />
-              <AppTextInput
-                placeholder="Entre com a data"
-                value={'' + userDate}
-                onChangeText={
-                  (userDate) => setUserDate(userDate)
-                }
-                maxLength={10}
-                style={{ padding: 10 }}
-                keyboardType="numeric"
-              />
-              <AppTextInput
-                value={userEmail}
-                placeholder="Entre com o Email"
-                onChangeText={
-                  (userEmail) => setUserEmail(userEmail)
-                }
-                style={{ padding: 10 }}
-                keyboardType="numeric"
-              />
-              <AppButton
-                title="Atualizar Usuário"
-                customClick={updateUser}
-              />
-            </KeyboardAvoidingView>
-          </ScrollView>
-        </View>
-      </Container>
-    </SafeAreaView>
+    <Container>
+      <ScrollView keyboardShouldPersistTaps="handled">
+        <S.KeyBoardView
+          behavior="padding"
+          style={{ flex: 1, justifyContent: 'space-between' }}>
+          <AppTitle text="Filtro de Usuário" />
+          <AppInputMask
+            placeholder="Entre com o ID do Usuário"
+            onChangeText={
+              (inputUserId) => setInputUserId(inputUserId)
+            }
+            type="only-numbers"
+          />
+          <AppButton
+            title="Buscar Usuário"
+            customClick={searchUser}
+          />
+          <AppTextInput
+            placeholder="Entre com o Nome"
+            value={userName}
+            onChangeText={
+              (userName) => setUserName(userName)
+            }
+          />
+          <AppInputMask
+            placeholder="Entre com a data"
+            value={'' + userDate}
+            onChangeText={
+              (userDate) => setUserDate(userDate)
+            }
+            maxLength={10}
+            keyboardType="numeric"
+            type="only-numbers"
+          />
+          <AppTextInput
+            value={userEmail}
+            placeholder="Entre com o Email"
+            onChangeText={
+              (userEmail) => setUserEmail(userEmail)
+            }
+            keyboardType="numeric"
+          />
+          <AppButton
+            title="Atualizar Usuário"
+            customClick={updateUser}
+          />
+        </S.KeyBoardView>
+      </ScrollView>
+    </Container>
   );
 };
 
