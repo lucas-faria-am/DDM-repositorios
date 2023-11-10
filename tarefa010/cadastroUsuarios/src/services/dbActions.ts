@@ -58,7 +58,6 @@ const registerUser = (
     userDate: string,
     userEmail: string
 ) => {
-    return new Promise((resolve) => {
         db.transaction(function (tx) {
             tx.executeSql(
                 "SELECT * FROM table_user where user_id = ?",
@@ -93,8 +92,6 @@ const registerUser = (
                     }
                 }
             );
-        });
-        resolve("success");
     });
 };
 const updateUser = (
@@ -103,7 +100,6 @@ const updateUser = (
     userDate: string,
     userEmail: string
 ) => {
-    return new Promise((resolve) => {
         db.transaction((tx) => {
             tx.executeSql(
                 "UPDATE table_user set user_name=?, user_date=? , user_email=? where user_id=?",
@@ -126,8 +122,6 @@ const updateUser = (
                 }
             );
         });
-        resolve("success");
-    });
 };
 
 const delUser = (inputUserId: string): void => {

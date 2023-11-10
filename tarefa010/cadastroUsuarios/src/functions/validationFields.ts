@@ -24,7 +24,6 @@ export const validationFields = (
             alert("Por favor preencha a data");
             return;
         }
-
         if (!user_email) {
             alert("Por favor preencha o email !");
             return;
@@ -33,7 +32,6 @@ export const validationFields = (
             alert("Por favor preencher com um e-mail valido!");
             return;
         }
-
         resolve("success");
     });
 };
