@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const persoRoutes = require('./routes/personRoutes')
+require('dotenv').config();
 
 const app = express();
 
@@ -23,8 +24,8 @@ app.get('/', (req, res) => {
 app.use('/person', persoRoutes);
 
 
-const DB_USER = 'lucasnc10'
-const DB_PASSWORD = encodeURIComponent('Seed.123')
+const DB_USER = process.env.DB_USER
+const DB_PASSWORD = encodeURIComponent(process.env.DB_PASSWORD)
 
 mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASSWORD}@cluster0.bqvxgjr.mongodb.net/bancodaapi?retryWrites=true&w=majority`)
 .then(() => {
